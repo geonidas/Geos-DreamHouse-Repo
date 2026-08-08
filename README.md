@@ -1,4 +1,7 @@
-# Dreamhouse Lightning Web Components Sample Application
+# Geos-DreamHouse-Repo
+Sample scratch org forked from Salesforce's Github, used as a starting base to build solutions off of.
+
+## Dreamhouse Lightning Web Components Sample Application
 
 [![CI Workflow](https://github.com/trailheadapps/dreamhouse-lwc/workflows/CI/badge.svg)](https://github.com/trailheadapps/dreamhouse-lwc/actions?query=workflow%3ACI) [![Packaging Workflow](https://github.com/trailheadapps/dreamhouse-lwc/workflows/Packaging/badge.svg)](https://github.com/trailheadapps/dreamhouse-lwc/actions?query=workflow%3APackaging) [![codecov](https://codecov.io/gh/trailheadapps/dreamhouse-lwc/branch/main/graph/badge.svg)](https://codecov.io/gh/trailheadapps/dreamhouse-lwc)
 
