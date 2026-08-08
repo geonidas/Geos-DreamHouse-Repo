@@ -1,5 +1,5 @@
 # Geos-DreamHouse-Repo
-Sample scratch org forked from Salesforce's Github, used as a starting base to build solutions off of.
+Copy of sample scratch org forked from Salesforce's Github, used as a starting base to build solutions off of.
 
 ## Dreamhouse Lightning Web Components Sample Application
 
