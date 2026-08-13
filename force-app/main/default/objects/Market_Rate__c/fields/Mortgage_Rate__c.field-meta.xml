@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mortgage_Rate__c</fullName>
+    <description>Daily updated Mortgage Rate</description>
+    <inlineHelpText>Annual rate as published by FRED (e.g. 6.72 = 6.72%). Divide by 100 before use in calculations.</inlineHelpText>
+    <label>Mortgage Rate</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>3</scale>
+    <trackTrending>false</trackTrending>
+    <type>Percent</type>
+</CustomField>
