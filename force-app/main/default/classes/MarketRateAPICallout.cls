@@ -35,7 +35,11 @@ public with sharing class MarketRateAPICallout {
             return; //FREDs documented missing-value marker
         }
 
-        Market_Rate__c rate = new Market_Rate__c(Mortgage_Rate__c = Decimal.valueOf(obs.value), Observation_Date__c = Date.valueOf(obs.observationDate));
+        Market_Rate__c rate = new Market_Rate__c(
+            Mortgage_Rate__c = Decimal.valueOf(obs.value), 
+            Observation_Date__c = Date.valueOf(obs.observationDate), 
+            Rate_Key__c = SERIES_ID + '-' + obs.observationDate
+        );
 
         upsert rate Rate_Key__c;
     }
