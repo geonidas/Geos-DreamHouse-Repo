@@ -1,21 +1,7 @@
 public with sharing class MarketRateAPICallout {
 
     private static final String SERIES_ID = 'OBMMIC30YF';
-    public class FredObservationResponse {
-        public List<Observation> observations;
 
-        public class Observation {
-            public String observationDate;  // renamed from "date"
-            public String value;
-        }
-
-        public static FredObservationResponse parse(String body) {
-            return (FredObservationResponse) JSON.deserialize(
-                body.replace('"date"', '"observationDate"'),
-                FredObservationResponse.class
-            );
-        }
-    }
     public static void syncLatestRate(){
         API_Credential__mdt cfg = API_Credential__mdt.getInstance('FRED_Key');
         if(cfg == null || String.isBlank(cfg.API_Key_String__c)){
@@ -39,12 +25,12 @@ public with sharing class MarketRateAPICallout {
         System.debug('Status: ' + res.getStatusCode() + ' ' + res.getStatus());
         System.debug('Body: ' + res.getBody());
         
-        FredObservationResponse parsed = FredObservationResponse.parse(res.getBody());
+        MarketRateFredObservationResponse parsed = MarketRateFredObservationResponse.parse(res.getBody());
         if (parsed.observations == null || parsed.observations.isEmpty()){
             return; //nothing published yet
         }
 
-        FredObservationResponse.Observation obs = parsed.observations[0];
+        MarketRateFredObservationResponse.Observation obs = parsed.observations[0];
         if(String.isBlank(obs.value) || obs.value == '.'){
             return; //FREDs documented missing-value marker
         }
