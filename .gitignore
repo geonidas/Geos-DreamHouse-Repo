@@ -44,4 +44,4 @@ $RECYCLE.BIN/
 .env
 
 # Anonymous Apex Scripts
-scripts/
+scripts/apex/local
