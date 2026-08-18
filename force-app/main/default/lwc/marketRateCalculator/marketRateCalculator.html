@@ -1,3 +1,10 @@
 <template>
-    
+    <lightning-card title="Mortgage Rate Calculator">
+        <lightning-input title="Down Payment"></lightning-input>
+        <lightning-input title="Loan Term"></lightning-input>
+        <template if:true={mortgageRate}>
+            <lightning-formatted-number title="Current Market Rate" value={mortgageRate}></lightning-formatted-number>
+        </template>
+        <lightning-input title="Interest Rate Override"></lightning-input>
+    </lightning-card>
 </template>

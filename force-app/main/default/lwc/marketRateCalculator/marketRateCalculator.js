@@ -1,20 +1,24 @@
 import { LightningElement, wire } from 'lwc';
-import { getRecord } from "lightning/uiRecordApi";
+import getLatestMarketRate from '@salesforce/apex/MarketRateController.getLatestMarketRate';
 
-
-const FIELDS = ['Mortgage_Rate__c', 'Observation_Date__c'];
 export default class MarketRateCalculator extends LightningElement {
 
-    recordId;
-
-    @wire(getRecord, { recordId: "$recordId", fields:FIELDS})
+    @wire(getLatestMarketRate)
     wiredMarketRateRecord;
 
     get mortgageRate() {
-        return this.wiredMarketRateRecord.data?.fields?.Mortgage_Rate__c?.value;
+        return this.wiredMarketRateRecord.data?.Mortgage_Rate__c;
     }
 
     get observationDate() {
-        return this.wiredMarketRateRecord.data?.fields?.Observation_Date__c?.value;
+        return this.wiredMarketRateRecord.data?.fields?.Observation_Date__c;
+    }
+
+    get hasError() {
+        return this.wiredMarketRateRecord.error != null;
+    }
+
+    get isLoading() {
+        return this.wiredMarketRateRecord.data == null && this.hasError === false;
     }
 }
