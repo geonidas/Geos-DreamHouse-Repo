@@ -12,6 +12,10 @@
         <enabled>true</enabled>
         <externalCredentialPrincipal>FRED-FredNamedPrincipal</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>Slack_External_Cred-SlackUser</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>API Permissions</label>
 </PermissionSet>
