@@ -2,6 +2,13 @@ public with sharing class PropertyController {
     private static final Decimal DEFAULT_MAX_PRICE = 9999999;
     private static final Integer DEFAULT_PAGE_SIZE = 9;
 
+    //[Geo's code]***************
+    @AuraEnabled(cacheable = true)
+    public static Decimal getPropertyPrice(Id propertyId) {
+        return [SELECT Price__c FROM Property__c WHERE Id = :propertyId].Price__c;
+    }
+    //***************************
+
     /**
      * Endpoint that retrieves a paged and filtered list of properties
      * @param searchKey String used for searching on property title, city and tags

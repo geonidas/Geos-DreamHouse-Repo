@@ -1,7 +1,33 @@
 <template>
     <lightning-card title="Mortgage Rate Calculator">
-        <lightning-input label="Down Payment"></lightning-input>
-        <lightning-input label="Loan Term"></lightning-input>
+        <lightning-slider
+            label="Down Payment %"
+            min="0" max="50" step="1"
+            value={downPaymentPercent}
+            onchange={handleSliderChange}>
+        </lightning-slider>
+
+        <lightning-input
+            type="number" formatter="currency" step="1000"
+            label="Down Payment"
+            value={downPaymentAmount}
+            onchange={handleAmountChange}>
+        </lightning-input>
+
+        <lightning-input
+            type="number" formatter="percent-fixed" step="0.5"
+            label="Down Payment %"
+            value={downPaymentPercent}
+            onchange={handlePercentChange}>
+        </lightning-input>
+
+        <lightning-combobox
+            label="Loan Term"
+            value={termMonths}
+            options={termOptions}
+            onchange={handleTermChange}>
+        </lightning-combobox>
+        
         <template if:true={mortgageRate}>
             <div class="slds-form-element">
                 <span class="slds-form-element__label">Current Rate</span>
