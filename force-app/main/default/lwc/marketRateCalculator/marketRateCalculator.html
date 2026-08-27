@@ -44,7 +44,34 @@
                 </div>        
             </template>
 
-            <lightning-input label="Interest Rate Override"></lightning-input>
+            <div class="slds-form-element slds-p-top_small">
+                <span class="slds-form-element__label">Interest Rate Override</span>
+                <div class="slds-form-element__control">
+                    <lightning-input
+                        type="number"
+                        step="any"
+                        formatter="percent-fixed"
+                        variant="label-hidden"
+                        placeholder="Leave blank to use current rate"
+                        value={rateOverride}
+                        onchange={handleRateOverrideChange}>
+                    </lightning-input>
+                </div>
+                <template if:true={isOverridden}>
+                    <p class="slds-text-color_weak slds-text-body_small">
+                        Testing at {rateOverride}% instead of the live {mortgageRate}% rate.
+                    </p>
+                </template>
+            </div>
+
+            <template if:true={isOverridden}>
+                <lightning-button
+                    variant="base"
+                    class="slds-p-around_small"
+                    label="Reset to live rate"
+                    onclick={handleClearOverride}>
+                </lightning-button>
+            </template>
 
             <template if:true={monthlyPayment}>
                 <div class="slds-form-element">

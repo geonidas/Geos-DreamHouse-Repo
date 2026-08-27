@@ -16,6 +16,7 @@ export default class MarketRateCalculator extends LightningElement {
 
     @track downPaymentAmount = 0;
     @track termMonths = '360';
+    @track rateOverride;
 
     termOptions = TERM_OPTIONS;
 
@@ -43,6 +44,22 @@ export default class MarketRateCalculator extends LightningElement {
         return Math.round((this.downPaymentAmount / this.propertyPrice) * 10000) / 100;
     }
 
+    get effectiveRate() {
+        return this.rateOverride != null ? this.rateOverride : this.mortgageRate;
+    }
+
+    get isOverridden() {
+        return this.rateOverride != null;
+    }
+
+    get monthlyPayment() {
+        if (!this.propertyPrice || !this.effectiveRate) {
+            return undefined;
+        }
+        const principal = this.propertyPrice - this.downPaymentAmount;
+        return calculateMonthlyPayment(principal, this.effectiveRate, Number(this.termMonths));
+    }
+
     handleAmountChange(event) {
         this.downPaymentAmount = Number(event.target.value) || 0;
     }
@@ -68,13 +85,17 @@ export default class MarketRateCalculator extends LightningElement {
         this.termMonths = event.detail.value;
     }
 
-    get monthlyPayment() {
-        if (!this.propertyPrice || !this.mortgageRate) {
-            return undefined;
-        }
-        const principal = this.propertyPrice - this.downPaymentAmount;
-        return calculateMonthlyPayment(principal, this.mortgageRate, Number(this.termMonths));
+    handleRateOverrideChange(event) {
+        const raw = event.target.value;
+        this.rateOverride = raw === '' ? undefined : Number(raw);
     }
 
+    handleClearOverride() {
+        this.rateOverride = undefined;
+        const input = this.template.querySelector('[data-id="rateOverride"]');
+        if (input) {
+            input.value = '';
+        }
+    }
 }
 
