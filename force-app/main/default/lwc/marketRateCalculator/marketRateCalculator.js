@@ -10,15 +10,17 @@ const TERM_OPTIONS = [
 ];
 
 export default class MarketRateCalculator extends LightningElement {
-
-    //@wire(getPropertyPrice)
-    @api propertyPrice = 350000;
+    
+    termOptions = TERM_OPTIONS;
+    
+    @api recordId;
 
     @track downPaymentAmount = 0;
     @track termMonths = '360';
     @track rateOverride;
 
-    termOptions = TERM_OPTIONS;
+    @wire(getPropertyPrice, { propertyId: '$recordId'})
+    wiredPropertyPrice;
 
     @wire(getLatestMarketRate)
     wiredMarketRateRecord;
@@ -36,7 +38,8 @@ export default class MarketRateCalculator extends LightningElement {
     }
 
     get isLoading() {
-        return this.wiredMarketRateRecord.data == null && this.hasError === false;
+        return (this.wiredMarketRateRecord.data == null && this.hasError === false)
+            || (this.wiredPropertyPrice.data == null && this.wiredPropertyPrice.error == null);
     }
 
     get downPaymentPercent() {
@@ -58,6 +61,10 @@ export default class MarketRateCalculator extends LightningElement {
         }
         const principal = this.propertyPrice - this.downPaymentAmount;
         return calculateMonthlyPayment(principal, this.effectiveRate, Number(this.termMonths));
+    }
+
+    get propertyPrice() {
+        return this.wiredPropertyPrice.data;
     }
 
     handleAmountChange(event) {
