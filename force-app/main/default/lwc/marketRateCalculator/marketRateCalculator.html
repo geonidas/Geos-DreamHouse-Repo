@@ -1,46 +1,65 @@
 <template>
     <lightning-card title="Mortgage Rate Calculator">
-        <lightning-slider
-            label="Down Payment %"
-            min="0" max="50" step="1"
-            value={downPaymentPercent}
-            onchange={handleSliderChange}>
-        </lightning-slider>
+        <div class="slds-p-around_medium">
+            <lightning-slider
+                label="Down Payment %"
+                min="0" max="50" step="1"
+                value={downPaymentPercent}
+                onchange={handleSliderChange}>
+            </lightning-slider>
 
-        <lightning-input
-            type="number" formatter="currency" step="1000"
-            label="Down Payment"
-            value={downPaymentAmount}
-            onchange={handleAmountChange}>
-        </lightning-input>
+            <lightning-input
+                type="number" formatter="currency" step="any"
+                label="Down Payment"
+                value={downPaymentAmount}
+                data-id="downPaymentAmount"
+                onchange={handleAmountChange}>
+            </lightning-input>
 
-        <lightning-input
-            type="number" formatter="percent-fixed" step="0.5"
-            label="Down Payment %"
-            value={downPaymentPercent}
-            onchange={handlePercentChange}>
-        </lightning-input>
+            <lightning-input
+                type="number" formatter="percent-fixed" step="0.5"
+                label="Down Payment %"
+                value={downPaymentPercent}
+                onchange={handlePercentChange}>
+            </lightning-input>
 
-        <lightning-combobox
-            label="Loan Term"
-            value={termMonths}
-            options={termOptions}
-            onchange={handleTermChange}>
-        </lightning-combobox>
-        
-        <template if:true={mortgageRate}>
-            <div class="slds-form-element">
-                <span class="slds-form-element__label">Current Rate</span>
-                <div class="slds-form-element__control">
-                    <lightning-formatted-number
-                        value={mortgageRate}
-                        format-style="percent-fixed"
-                        maximum-fraction-digits="3"
-                        class="slds-text-heading_medium">
-                    </lightning-formatted-number>
-                </div>
-            </div>        
-        </template>
-        <lightning-input label="Interest Rate Override"></lightning-input>
+            <lightning-combobox
+                label="Loan Term"
+                value={termMonths}
+                options={termOptions}
+                onchange={handleTermChange}>
+            </lightning-combobox>
+
+            <template if:true={mortgageRate}>
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label">Current Rate</span>
+                    <div class="slds-form-element__control">
+                        <lightning-formatted-number
+                            value={mortgageRate}
+                            format-style="percent-fixed"
+                            maximum-fraction-digits="3"
+                            class="slds-text-heading_medium">
+                        </lightning-formatted-number>
+                    </div>
+                </div>        
+            </template>
+
+            <lightning-input label="Interest Rate Override"></lightning-input>
+
+            <template if:true={monthlyPayment}>
+                <div class="slds-form-element">
+                    <span class="slds-form-element__label">Calculated Monthly Payment</span>
+                    <div class="slds-form-element__control">
+                        <lightning-formatted-number
+                            value={monthlyPayment}
+                            format-style="currency"
+                            currency-code="USD"
+                            maximum-fraction-digits="2"
+                            class="slds-text-heading_large">
+                        </lightning-formatted-number>
+                    </div>
+                </div>        
+            </template>
+        </div>
     </lightning-card>
 </template>

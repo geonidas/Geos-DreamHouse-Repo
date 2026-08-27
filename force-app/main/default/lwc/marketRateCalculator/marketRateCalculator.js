@@ -12,10 +12,10 @@ const TERM_OPTIONS = [
 export default class MarketRateCalculator extends LightningElement {
 
     //@wire(getPropertyPrice)
-    @api propertyPrice;
+    @api propertyPrice = 350000;
 
     @track downPaymentAmount = 0;
-    @track termMonths = 360;
+    @track termMonths = '360';
 
     termOptions = TERM_OPTIONS;
 
@@ -40,7 +40,7 @@ export default class MarketRateCalculator extends LightningElement {
 
     get downPaymentPercent() {
         if (!this.propertyPrice) return 0;
-        return (this.downPaymentAmount / this.propertyPrice) * 100;
+        return Math.round((this.downPaymentAmount / this.propertyPrice) * 10000) / 100;
     }
 
     handleAmountChange(event) {
@@ -49,26 +49,31 @@ export default class MarketRateCalculator extends LightningElement {
 
     handlePercentChange(event) {
         const percent = Number(event.target.value) || 0;
-        this.downPaymentAmount = this.propertyPrice
-            ? (percent / 100) * this.propertyPrice
-            : 0;
+        const rawAmount = this.propertyPrice ? (percent / 100) * this.propertyPrice : 0;
+        this.downPaymentAmount = Math.round(rawAmount * 100) / 100;
     }
 
     handleSliderChange(event) {
-        // slider drives percent, same conversion as the percent field
-        this.handlePercentChange(event);
+        const percent = event.detail.value;
+        const rawAmount = this.propertyPrice ? (percent / 100) * this.propertyPrice : 0;
+        this.downPaymentAmount = Math.round(rawAmount * 100) / 100;
+
+        const amountInput = this.template.querySelector('[data-id="downPaymentAmount"]');
+        if (amountInput){
+            amountInput.blur();
+        }
     }
 
     handleTermChange(event) {
-        this.termMonths = Number(event.detail.value);
+        this.termMonths = event.detail.value;
     }
 
     get monthlyPayment() {
         if (!this.propertyPrice || !this.mortgageRate) {
             return undefined;
         }
-        const principal = this.propertyPrice - (this.downPayment || 0);
-        return calculateMonthlyPayment(principal, this.mortgageRate, this.termMonths);
+        const principal = this.propertyPrice - this.downPaymentAmount;
+        return calculateMonthlyPayment(principal, this.mortgageRate, Number(this.termMonths));
     }
 
 }
