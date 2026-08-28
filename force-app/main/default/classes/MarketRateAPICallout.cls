@@ -20,7 +20,7 @@ public with sharing class MarketRateAPICallout {
 
         HttpResponse res = new Http().send(req);
         if(res.getStatusCode() != 200){
-            throw new CalloutException('FRED API call failed: HTTP ' + res.getStatus() + ' ' + res.getStatus());
+            throw new CalloutException('FRED API call failed: HTTP ' + res.getStatusCode() + ' ' + res.getStatus());
         }
         System.debug('Status: ' + res.getStatusCode() + ' ' + res.getStatus());
         System.debug('Body: ' + res.getBody());
