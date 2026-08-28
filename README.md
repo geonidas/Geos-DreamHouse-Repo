@@ -5,7 +5,7 @@ Clone of sample scratch org forked from Salesforce's Github, used as a starting 
 
 
 ## Projects
-[Mortgage Rate Calculator (LWC, Apex, API Integration, Schedulable, Unit Testing)]()
+[Mortgage Rate Calculator (LWC, Apex, API Integration, Schedulable, Unit Testing)](docs/mortgage-calculator.md)
 
 ## Credits
 
