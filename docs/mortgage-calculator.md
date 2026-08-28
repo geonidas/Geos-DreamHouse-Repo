@@ -7,7 +7,7 @@ pulling daily interest rates from the FRED API.
 [screenshot or short GIF of the component in action]
 
 ## Architecture
-- `force-app/main/default/classes/MarketRateController.cls` — Apex controller
+- [`force-app/main/default/classes/MarketRateController.cls`](../force-app/main/default/classes/MarketRateController.cls) — Apex controller
 - `force-app/main/default/classes/MarketRateAPICallout.cls` — FRED callout + parsing
 - `force-app/main/default/classes/MarketRateQueueableJob.cls` — Queueable Interface to asynchronously callout to FRED API
 - `force-app/main/default/classes/MarketRateCalloutScheduler.cls` — Schedules the queuable job
