@@ -66,6 +66,10 @@ export default class MarketRateCalculator extends LightningElement {
     get propertyPrice() {
         return this.wiredPropertyPrice.data;
     }
+    
+    get hasPayment() {
+        return this.monthlyPayment !== undefined;
+    }
 
     handleAmountChange(event) {
         this.downPaymentAmount = Number(event.target.value) || 0;

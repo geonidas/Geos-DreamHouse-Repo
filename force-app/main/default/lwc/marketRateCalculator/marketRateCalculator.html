@@ -48,6 +48,7 @@
                 <span class="slds-form-element__label">Interest Rate Override</span>
                 <div class="slds-form-element__control">
                     <lightning-input
+                        data-id="rateOverride"
                         type="number"
                         step="any"
                         formatter="percent-fixed"
@@ -73,7 +74,7 @@
                 </lightning-button>
             </template>
 
-            <template if:true={monthlyPayment}>
+            <template if:true={hasPayment}>
                 <div class="slds-form-element">
                     <span class="slds-form-element__label">Calculated Monthly Payment</span>
                     <div class="slds-form-element__control">
