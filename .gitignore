@@ -45,3 +45,7 @@ $RECYCLE.BIN/
 
 # Anonymous Apex Scripts
 scripts/apex/local
+
+# Custom Metadata
+force-app/main/default/customMetadata
+
