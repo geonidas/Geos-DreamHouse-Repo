@@ -42,3 +42,11 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
+
+# Anonymous Apex Scripts
+scripts/apex/local
+
+# Custom Metadata Secrets
+force-app/main/default/customMetadata/API_Credential.Alpha_Vantage_Free_Key.md-meta.xml
+force-app/main/default/customMetadata/API_Credential.FRED_Key.md-meta.xml
+
