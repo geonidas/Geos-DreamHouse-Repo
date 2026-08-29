@@ -6,6 +6,24 @@ pulling daily interest rates from the FRED API.
 ## What it does
 ![Mortgage Rate Calculator Demo Pt1](../images/MortgageRateCalculatorDemoPt1.gif)
 ![Mortgage Rate Calculator Demo Pt2](../images/MortgageRateCalculatorDemoPt2.gif)
+_(Property Price in demo is $850,000)_
+
+## FRED API
+![](../images/FRED_API.png)
+
+- [FRED](https://fred.stlouisfed.org) provides up-to-date economic data 
+- [30-Year Fixed Rate Conforming Mortgage Index (OBMMIC30YF)](https://fred.stlouisfed.org/series/OBMMIC30YF) was used for gathering average mortgage rate data which is updated daily
+
+## Calculator Formula
+
+The standard formula to calculate a fixed-rate monthly mortgage payment is:
+
+**M = P [ r(1 + r)^n ] / [ (1 + r)^n - 1 ]**
+
+- M: Total monthly payment (the final number you display to the user).
+- P: Principal loan amount. This is the purchase price of the property minus the user's down payment.
+- r: Monthly interest rate. (Note: External APIs will give you the annual interest rate as a percentage, like 6.5%. You must divide this by 100 to get the decimal, and then divide by 12 to get the monthly rate).
+- n: Total number of payments over the life of the loan. For a standard 30-year mortgage, this is 360 (30 years × 12 months).
 
 ## Architecture
 - [`force-app/main/default/classes/MarketRateController.cls`](../force-app/main/default/classes/MarketRateController.cls) — Apex controller
@@ -19,13 +37,10 @@ pulling daily interest rates from the FRED API.
 - [`force-app/main/default/objects/API_Credential__mdt`](../force-app/main/default/objects/API_Credential__mdt) – Custom metadata object used for holding API Credentials such as keys
 - [`force-app/main/default/externalCredentials/FRED.externalCredential-meta.xml`](../force-app/main/default/externalCredentials/FRED.externalCredential-meta.xml) – External Credentials for integration to FRED API
 - [`force-app/main/default/namedCredentials/FRED_Mortgage_Rates.namedCredential-meta.xml`](../force-app/main/default/namedCredentials/FRED_Mortgage_Rates.namedCredential-meta.xml) – Named Credentials for integration to FRED API
+- [`scripts/apex/schedule-fred-sync.apex`](../scripts/apex/schedule-fred-sync.apex) – Executable Apex for setting a daily scheduled job to retrieve latest Market Rate from FRED API
 
-## Design decisions
-- v1 vs v2 FRED API tradeoff: [link to relevant section or inline explanation]
-- Why the down payment fields don't fight each other: single source of truth + derived getters
-- Why Platform Cache wasn't used: [your earlier reasoning]
-
-## Setup
-sf project deploy start
-sf org assign permset --name Mortgage_Calculator_Access
-sf apex run --file scripts/apex/schedule-fred-sync.apex
+## Unit Tests
+- [`force-app/main/default/classes/MarketRateControllerTest.cls`](../force-app/main/default/classes/MarketRateControllerTest.cls)
+- [`force-app/main/default/classes/MarketRateAPICalloutTest.cls`](../force-app/main/default/classes/MarketRateAPICalloutTest.cls)
+- [`force-app/main/default/classes/MarketRateSchedulingTest.cls`](../force-app/main/default/classes/MarketRateSchedulingTest.cls)
+- [`force-app/main/default/classes/MarketRateFredObservationResponseTest.cls`](../force-app/main/default/classes/MarketRateFredObservationResponseTest.cls)
