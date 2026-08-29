@@ -4,7 +4,8 @@ A live-rate mortgage payment estimator added to the Property record page,
 pulling daily interest rates from the FRED API.
 
 ## What it does
-[screenshot or short GIF of the component in action]
+![Mortgage Rate Calculator Demo Pt1](images/MortgageRateCalculatorDemoPt1.gif)
+![Mortgage Rate Calculator Demo Pt2](images/MortgageRateCalculatorDemoPt2.gif)
 
 ## Architecture
 - [`force-app/main/default/classes/MarketRateController.cls`](../force-app/main/default/classes/MarketRateController.cls) — Apex controller
